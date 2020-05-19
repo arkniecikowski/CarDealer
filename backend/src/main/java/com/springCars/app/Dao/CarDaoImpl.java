@@ -26,4 +26,15 @@ public class CarDao {
     public Collection<Car> getAllCars() {
         return this.cars.values();
     }
+
+    public Car getCarByID(int id) {
+        return this.cars.get(id);
+    }
+
+
+    public void addCar(Car car) {
+        cars.put(3, new Car(car.getId(), car.getYear(), car.getName()));
+        System.out.println(cars);
+    }
+
 }
