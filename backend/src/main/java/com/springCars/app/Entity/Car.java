@@ -4,6 +4,7 @@ package com.springCars.app.Entity;
 
 public class Car {
 
+
     int id;
     int year;
     String name;

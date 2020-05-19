@@ -3,12 +3,12 @@ package com.springCars.app.Controller;
 import com.springCars.app.Entity.Car;
 import com.springCars.app.Service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/cars")
 public class CarController {
@@ -20,4 +20,25 @@ public class CarController {
     public Collection<Car> getAllCars() {
         return carService.getAllCars();
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Car getCarByID(@PathVariable("id") int id) {
+        return carService.getCarByID(id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public void addCar(@RequestBody Car car) {
+        carService.addCar(car);
+    }
+
+//    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void deleteCar(@PathVariable("id") int id) {
+        carService.deleteCar(id);
+    }
+
+
+
 }

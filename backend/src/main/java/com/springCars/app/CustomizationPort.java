@@ -9,7 +9,7 @@ public class CustomizationPort implements WebServerFactoryCustomizer< Configurab
 
     @Override
     public void customize(ConfigurableServletWebServerFactory server) {
-        server.setPort(6969);
+        server.setPort(4000);
     }
 
 }

@@ -3,38 +3,44 @@ package com.springCars.app.Dao;
 import com.springCars.app.Entity.Car;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Repository
-public class CarDao {
+public class CarDaoImpl implements FakeCarDao {
 
-    private static Map<Integer, Car> cars;
+    private static List<Car> DBcars = new ArrayList<>();
 
-    static {
+//    static {
+//
+//        cars = new HashMap<Integer, Car>() {
+//            {
+//                put(1, new Car(1, 1994, "Audi"));
+//                put(2, new Car(2, 2005, "Bmw"));
+//            }
+//        };
+//    }
 
-        cars = new HashMap<Integer, Car>() {
-
-            {
-                put(1, new Car(1, 1994, "Audi"));
-                put(2, new Car(2, 2005, "Bmw"));
-            }
-        };
-    }
-
+    @Override
     public Collection<Car> getAllCars() {
-        return this.cars.values();
+        return this.DBcars;
     }
 
+    @Override
     public Car getCarByID(int id) {
-        return this.cars.get(id);
+        return this.DBcars.get(id);
     }
 
-
+    @Override
     public void addCar(Car car) {
-        cars.put(3, new Car(car.getId(), car.getYear(), car.getName()));
-        System.out.println(cars);
+        DBcars.add(new Car(car.getId(), car.getYear(), car.getName()));
     }
 
+    @Override
+    public void deleteCar(int id) {
+        for (Car car : DBcars) {
+            if (car.getId() == id) {
+                DBcars.remove(car);
+            }
+        }
+    }
 }
