@@ -1,0 +1,25 @@
+@import "../global.scss";
+
+.main {
+  flex-grow: 1;
+  padding: 20px 0;
+  position: relative;
+  @include tablet-large {
+    padding: 15px 0;
+  }
+}
+.wrapper {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  @include mobile-large {
+    top: 180px;
+  }
+  @include tablet-small {
+    top: 200px;
+  }
+  @include tablet-large {
+    top: 210px;
+  }
+}

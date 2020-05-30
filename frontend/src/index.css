@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.item-body-desc {
+  background: darkorange;
+}
+
+.more-information-cars {
+  background: red;
+  float: right;
+}
+
+.contact {
+  height: 1000px;
+  width: 100px;
+  background: yellowgreen;
+}
