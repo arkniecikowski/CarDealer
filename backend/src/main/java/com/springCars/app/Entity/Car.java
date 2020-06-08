@@ -1,44 +1,34 @@
 package com.springCars.app.Entity;
 
 
+import javax.persistence.*;
 
+import lombok.*;
+
+@Entity
+@Table(name = "cars")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Car {
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id")
+    long id;
 
-    int id;
-    int year;
-    String name;
+    @Column(name = "marka")
+    String marka;
 
-    public Car(int id, int year, String name) {
-        this.id = id;
-        this.year = year;
-        this.name = name;
-    }
+    @Column(name = "model")
+    String model;
 
-    public Car(){}
+    @Column(name = "rok")
+    int rok;
 
-    public int getId() {
-        return id;
-    }
+    @Column(name = "przebieg")
+    int przebieg;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    @Column(name = "cena")
+    int cena;
 }

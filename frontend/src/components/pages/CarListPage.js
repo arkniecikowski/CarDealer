@@ -6,14 +6,17 @@ import "../../styles/pages/CarListPage.scss"
 import SearchCarPage from "./SearchCarPage";
 
 const CarListPage = () => {
-    const [data, setData] = useState();
+    const [basicData, setbasicData] = useState([]);
+    const [data, setData] = useState([]);
     const [load, setLoad] = useState(false);
     const [error, setError] = useState('');
+    const [value, setValue] = useState("");
 
     useEffect(() => {
         axios.get('http://localhost:4000/cars')
             .then(res => {
                 setData(res.data);
+                setbasicData(res.data);
                 setLoad(true);
             })
             .catch(err => {
@@ -22,28 +25,35 @@ const CarListPage = () => {
             })
     }, []);
 
+    function handleChange(newValue) {
+        const newData = basicData;
+        if (newValue.marka === "All") {
+            setData(newData)
+        } else {
+            setData(
+                basicData.filter(val =>
+                    val.marka.toUpperCase() === newValue.marka.toUpperCase()
+                    // val.model.toUpperCase() === newValue.model.toUpperCase()
+                )
+            )
+        }
 
-    const carFakeData = [
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-        { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
-    ]
+        // const newData2 = basicData.filter(val =>
+        //     val.marka.toUpperCase() === newValue.marka.toUpperCase()
+        //     // val.model.toUpperCase() === newValue.model.toUpperCase() &&
+        //     // val.cena < newValue.cena &&
+        //     // val.rok < newValue.rok
+        // )
+        // console.log(data)
+        // console.log(basicData)
+        // setData(newData)
+    }
 
     if (load) {
         return (
             <section className="cars-list">
-                <SearchCarPage/>
+                <SearchCarPage onChange={handleChange} data={data}/>
                 <div className="row">
-                    {console.log(data)}
                     {data.map((data, index) => (
                         <div className="col-sm-6 col-md-4 py-3" key={index}>
                             <div className="card">
@@ -74,4 +84,20 @@ const CarListPage = () => {
 
 }
 
+
 export default CarListPage;
+
+// const carFakeData = [
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+//     { marka: "KIA", model: "Sportage", description: "2.0 CRDI 184km", rok: "2012", przebieg: "212997", cena: "42000" },
+// ]
