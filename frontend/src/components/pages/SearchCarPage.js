@@ -2,34 +2,50 @@ import React, {useEffect, useState} from 'react'
 import Form from "react-bootstrap/Form";
 
 const SearchCarPage = props => {
-    const [carSearch, setCarSearch] = useState(
-        { marka: '', model: '', cena: '', rok: ''}
-    );
+    const [carSearch, setCarSearch] = useState({ marka: '', model: 'All', cena: '', rok: ''});
     const [marka, setMarka] = useState([]);
     const [model, setModel] = useState([]);
+    const [basicData, setBasicData] = useState([])
+    
 
+    //Function to remove repetitions
     const distinct = (value, index, self) => {
         return self.indexOf(value) === index;
     }
 
     useEffect(() => {
         const marki = [];
-        const model = [];
-
+        setBasicData(props.data)
         props.data.map(item => {
             marki.push(item.marka)
         });
         setMarka(marki.filter(distinct))
-
-        props.data.map(item => {
-            if (item.marka === "")
-            model.push(item.model)
-        });
-        setModel(model.filter(distinct))
     }, [])
 
     const handleChange = (event) => {
         setCarSearch({...carSearch, [event.target.name]: event.target.value})
+
+            if(event.target.name === "marka") {
+                setModel([]);
+                setCarSearch({ marka: event.target.value, model: 'All', cena: '', rok: ''})
+                if(event.target.value !== "All"){
+                    let m = [];
+                    basicData.map(item => {
+                        if(item.marka === event.target.value) {
+                            m.push(item.model)
+                        } 
+                    })
+                    setModel(m.filter(distinct))
+                } else {
+                    let m = [];
+                    basicData.map(item => {
+                        if(item.marka === event.target.value) {
+                            m.push(item.model)
+                        } 
+                    })
+                    setModel(m.filter(distinct))
+                }
+            }
     }
 
     const handleSubmit = (event) => {

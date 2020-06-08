@@ -21,32 +21,30 @@ const CarListPage = () => {
             })
             .catch(err => {
                 setError(err.message);
-                setLoad(true)
             })
     }, []);
 
     function handleChange(newValue) {
+        setData(basicData)
         const newData = basicData;
         if (newValue.marka === "All") {
             setData(newData)
         } else {
-            setData(
-                basicData.filter(val =>
-                    val.marka.toUpperCase() === newValue.marka.toUpperCase()
-                    // val.model.toUpperCase() === newValue.model.toUpperCase()
+            if(newValue.model !== "All") {
+                setData(
+                    basicData.filter(val =>
+                        val.marka.toUpperCase() === newValue.marka.toUpperCase() &&
+                        val.model.toUpperCase() === newValue.model.toUpperCase()
+                    )
                 )
-            )
+            } else {
+                setData(
+                    basicData.filter(val =>
+                        val.marka.toUpperCase() === newValue.marka.toUpperCase()
+                    )
+                )
+            }
         }
-
-        // const newData2 = basicData.filter(val =>
-        //     val.marka.toUpperCase() === newValue.marka.toUpperCase()
-        //     // val.model.toUpperCase() === newValue.model.toUpperCase() &&
-        //     // val.cena < newValue.cena &&
-        //     // val.rok < newValue.rok
-        // )
-        // console.log(data)
-        // console.log(basicData)
-        // setData(newData)
     }
 
     if (load) {
