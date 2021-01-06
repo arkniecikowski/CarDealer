@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "react-data-grid": "^7.0.0-canary.16",
     "react-router-dom": "^5.2.0"
   }
